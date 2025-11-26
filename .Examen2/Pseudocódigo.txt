@@ -1,0 +1,20 @@
+b) Pseudocódigo recursivo
+
+función MAX_RECURSIVO(A, izq, der):
+     A: arreglo de enteros
+     izq: índice inicial
+     der: índice final
+
+    si izq == der entonces
+        regresar A[izq]         * Caso base: solo hay un elemento
+
+    mid ← (izq + der) / 2
+
+    maxIzq ← MAX_RECURSIVO(A, izq, mid)
+    maxDer ← MAX_RECURSIVO(A, mid + 1, der)
+
+    si maxIzq > maxDer entonces
+        regresar maxIzq
+    en otro caso
+        regresar maxDer
+fin función

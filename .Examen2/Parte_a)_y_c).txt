@@ -1,0 +1,29 @@
+PARTE 1 – Diseño del algoritmo (Divide & Conquer)
+a) ¿Cómo uso Divide & Conquer para encontrar el máximo?
+
+Idea general:
+
+Dividir:
+Dado un arreglo A[0..n-1], lo partimos en dos subarreglos:
+Izquierdo: A[izq..mid]
+Derecho: A[mid+1..der]
+donde mid = (izq + der) / 2.
+
+Conquistar (resolver recursivamente):
+Llamo recursivamente para obtener el máximo de la parte izquierda → maxIzq.
+Llamo recursivamente para obtener el máximo de la parte derecha → maxDer.
+
+Combinar:
+
+El máximo del arreglo completo es simplemente
+maximo = max(maxIzq, maxDer).
+De esta forma no recorro todo el arreglo en un solo ciclo, sino que voy “partiendo” el problema hasta que quede tan pequeño que sea trivial (un solo elemento).
+
+
+
+c) Explicación del caso base
+
+El caso base ocurre cuando el subarreglo tiene un solo elemento, es decir, cuando izq == der.
+En ese momento ya no tiene sentido seguir dividiendo porque no podemos partir más un solo elemento.
+El máximo de un arreglo de un solo elemento es él mismo, por eso regresamos A[izq].
+Si no definiéramos este caso base, la recursión nunca terminaría y el programa se iría a bucle infinito (desbordaría la pila).
