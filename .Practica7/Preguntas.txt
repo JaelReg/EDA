@@ -1,0 +1,46 @@
+Parte A – Lista simple
+
+1. ¿Por qué las listas enlazadas no requieren tamaño fijo como los arreglos?
+
+Porque las listas enlazadas son estructuras dinámicas: cada nodo se reserva en tiempo de ejecución con malloc().
+No es necesario decidir el tamaño al inicio; puedes:
+Insertar nodos mientras haya memoria disponible.
+Eliminar nodos y liberar memoria con free().
+En cambio, un arreglo necesita un tamaño fijo (en tiempo de compilación o al reservar un bloque con malloc), y ese tamaño no cambia sin hacer una nueva reserva.
+
+2. ¿Qué diferencia hay entre mover la cabeza y modificar los punteros internos?
+
+Mover la cabeza:
+Solo cambias el puntero cabeza para que apunte a otro nodo (por ejemplo, cabeza = cabeza->siguiente;).
+Se usa cuando el nodo afectado es el primer nodo de la lista.
+El resto de la estructura queda igual.
+
+Modificar punteros internos:
+Cambias el campo siguiente de algún nodo que no es la cabeza.
+Por ejemplo, al eliminar un nodo intermedio, haces: anterior->siguiente = actual->siguiente;
+Esto reconfigura la “cadena” interna de nodos sin cambiar el puntero cabeza.
+
+Parte B – Lista circular
+
+1. ¿Qué ventaja tiene la lista circular frente a la simple?
+
+En una lista circular el último nodo apunta de nuevo al primero, por lo que:
+Puedes recorrer la lista de forma cíclica sin necesidad de volver manualmente al inicio.
+Es útil para aplicaciones donde hay “turnos” o “rondas” continuas (por ejemplo, sistemas de round-robin).
+En una lista simple, al llegar a NULL el recorrido termina y no hay conexión directa de regreso al primer nodo.
+
+2. ¿Qué error puede causar un bucle infinito en una lista circular?
+
+El error típico es no tener una condición de parada correcta al recorrer:
+Si el ciclo while o do-while no verifica el regreso a cabeza y nunca llega a NULL (porque en circular no existe NULL al final), el recorrido puede entrar en un bucle infinito.
+Por eso, en listas circulares se usa una condición como:
+do { ... } while (actual != cabeza);
+
+3. ¿Qué estructuras o programas del mundo real se basan en listas circulares?
+
+Algunos ejemplos:
+
+Planificadores de tareas (round-robin) en sistemas operativos: los procesos se recorren circularmente.
+Juegos de mesa o sistemas de turnos, donde los jugadores se repiten en ciclo.
+Buffers circulares para manejar flujos de datos (audio, video, comunicaciones), reutilizando el espacio de forma cíclica.
+Algunas implementaciones de colas circulares y estructuras de navegación (por ejemplo, listas donde después del último elemento se vuelve al primero).

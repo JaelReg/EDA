@@ -1,0 +1,53 @@
+Preguntas (A) – Lista doblemente ligada
+
+1. ¿Por qué es más fácil eliminar un nodo intermedio en una lista doblemente ligada que en una lista simple?
+
+Porque en la lista doblemente ligada cada nodo tiene puntero al siguiente y al anterior.
+Para eliminar un nodo intermedio x basta con hacer:
+
+x->anterior->siguiente = x->siguiente
+x->siguiente->anterior = x->anterior
+
+
+No necesitas recorrer desde el inicio para encontrar el nodo anterior; ya lo tienes guardado en x->anterior.
+En una lista simple solo conoces el siguiente, así que debes buscar primero el nodo anterior recorriendo desde la cabeza.
+
+2. ¿Qué sucede si se olvida actualizar alguno de los punteros anterior o siguiente?
+
+Se rompe la estructura:
+
+Puede quedar un nodo “colgado” que nadie puede alcanzar (fuga lógica).
+O puedes tener enlaces inconsistentes (por ejemplo, sigues hacia adelante pero al ir hacia atrás te saltas nodos o entras en ciclos raros).
+Esto provoca errores al recorrer, posibles ciclos infinitos o incluso intentos de acceder a memoria liberada.
+
+3. ¿En qué escenarios prácticos se usa una lista doblemente ligada?
+
+Algunos ejemplos:
+Bandejas de correo / listas de elementos ordenados, donde puedes ir al siguiente o anterior (como en los ejemplos de las diapositivas).
+Implementaciones de listas en bibliotecas estándar (como std::list en C++).
+Sistemas donde necesitas inserciones/eliminaciones frecuentes en medio de la secuencia y navegación en ambos sentidos: editores de texto, navegadores de historial, etc.
+
+Preguntas (B) – Lista doblemente ligada circular
+
+1. ¿Qué diferencia hay entre una lista doblemente ligada y una circular doblemente ligada?
+
+En la lista doblemente ligada “normal”, el primer nodo tiene anterior = NULL y el último tiene siguiente = NULL.
+En la doblemente ligada circular, no hay NULL:
+El anterior del primero apunta al último.
+El siguiente del último apunta al primero.
+Esto permite recorridos cíclicos sin extremos.
+
+2. ¿Qué errores pueden causar ciclos infinitos al recorrer una lista circular?
+
+Principalmente:
+No controlar la condición de parada: si usas un while (actual != NULL) como en una lista normal, nunca se cumple porque en la circular nunca hay NULL.
+No detenerte al volver al nodo de inicio (por ejemplo: actual == inicio) o al haber contado ya todos los nodos.
+Por eso, en listas circulares se usa un do { ... } while (actual != inicio); o se lleva un contador de nodos para evitar bucles infinitos.
+
+3. ¿Qué tipo de aplicaciones reales usan este tipo de listas?
+
+Ejemplos muy típicos:
+Playlists o listas de reproducción: cuando terminas la última canción, pasas a la primera; puedes ir al siguiente o al anterior.
+Sistemas de turnos / juegos: los jugadores se recorren en círculo.
+Buffers circulares: estructuras donde, al llegar al final, sigues al inicio (por ejemplo en audio, video, comunicaciones).
+Menús o interfaces donde al avanzar desde el último elemento vuelves al primero.

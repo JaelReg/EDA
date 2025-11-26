@@ -1,0 +1,76 @@
+Actividades
+
+A) Cola Circular
+
+¿Por qué en la cola circular no se desperdician posiciones como en la cola lineal?
+
+En la cola lineal, frente y final solo avanzan hacia la derecha.
+Cuando desencolas, se liberan posiciones al principio del arreglo, pero ya no se vuelven a usar y parece que “se acabó el espacio” aunque haya huecos.
+
+En la cola circular usamos la operación (indice + 1) % MAX.
+Así, cuando final (o frente) llega al extremo del arreglo, regresa al índice 0 y reutiliza las posiciones que quedaron libres.
+Por eso no se desperdician espacios: el arreglo se recorre de forma circular.
+
+¿Qué pasa cuando el índice final llega al final del arreglo?
+
+Cuando final está en MAX - 1 y haces un enqueue, el nuevo valor se guarda ahí y después
+se actualiza: final = (final + 1) % MAX, lo que lo hace volver a 0.
+
+Es decir, el índice “da la vuelta” y continúa desde el principio del arreglo.
+
+¿Qué sucede si intentas encolar cuando la cola está llena?
+
+La condición de lleno es size == MAX.
+
+Si aun así llamas a enqueue, conceptualmente ocurre un overflow (desbordamiento), pero en el programa lo detectamos con isFull y:
+
+Mostramos un mensaje de error.
+
+No insertamos el nuevo elemento.
+
+Con esto evitamos sobrescribir datos válidos.
+
+B) Cola Doble (Deque)
+
+¿Qué diferencia tiene el deque frente a la cola circular normal?
+
+En una cola circular normal solo se puede:
+
+Insertar por un extremo (el final).
+
+Eliminar por el otro extremo (el frente).
+
+En un deque (double-ended queue):
+
+Se puede insertar y eliminar por ambos extremos: frente y trasero.
+
+Esto hace al deque más flexible: puede comportarse como cola, como pila o mezclas de ambas.
+
+¿Qué operaciones permiten simular tanto FIFO como LIFO?
+
+FIFO (cola tradicional):
+
+Insertar por un extremo y sacar por el otro, por ejemplo:
+
+insert_rear() + delete_front().
+
+LIFO (pila):
+
+Insertar y sacar por el mismo extremo, por ejemplo:
+
+insert_rear() + delete_rear(), o
+
+insert_front() + delete_front().
+
+¿Aplicaciones prácticas del deque?
+Algunos ejemplos importantes:
+
+Implementación de colas de tareas donde a veces hay que meter trabajos urgentes al frente.
+
+Algoritmos de ventana deslizante en estructuras de datos y procesamiento de señales.
+
+Implementar estructuras como deque de C++ STL, usada en sistemas donde se requieren
+inserciones/eliminaciones eficientes por ambos extremos.
+
+Manejo de historial (por ejemplo, navegador, deshacer/rehacer) donde se agregan y quitan
+elementos por distintos extremos según la acción.
